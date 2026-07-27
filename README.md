@@ -51,8 +51,6 @@
 
 项目架构由迭代优化与生产使用两部分组成。迭代阶段持续吸收用户指令、失败样例及 GitHub Issues，由模型更新中英文测试集、分析回归结果并优化提示词，经三级推理与证据门禁后发布 v41。生产阶段通过脚本加载 v41，依次完成归一化、语义分派、意图路由、状态连续性和工件验证，最终生成可核验结果。
 
-该图使用 Draw.io 绘制，亮色、暗色及中英文页面均保存在可编辑的 [Draw.io 源文件](docs/architecture/project-architecture.drawio) 中。
-
 <a id="highlights"></a>
 
 ## 亮点
@@ -212,21 +210,21 @@ python3 scripts/run_gpt56_sol_issue_regression.py --dry-run
 
 ```text
 gpt-5.6-instruct/
-├── README.md / README_EN.md           # 中英文首页
-├── codex-instruct.py                  # v41 默认部署与回滚
-├── sync-archives.py                   # 本地源文件与 ZIP 同步
-├── gpt-5.6-sol-unrestricted-v41.zip   # 唯一默认生产版
-├── gpt-5.6-sol-unrestricted-v41-skills.zip # 可选 skills 配套包（--file）
-├── historical-versions/               # v5/v24/v35 复现归档
+├── README.md / README_EN.md                     # 中英文首页
+├── codex-instruct.py                            # v41 默认部署与回滚
+├── sync-archives.py                             # 本地源文件与 ZIP 同步
+├── gpt-5.6-sol-unrestricted-v41.zip             # 唯一默认生产版
+├── gpt-5.6-sol-unrestricted-v41-skills.zip      # 可选 skills 配套包（--file）
+├── historical-versions/                         # v5/v24/v35 复现归档
 │   ├── gpt-5.6-sol-unrestricted-v5.md
 │   └── gpt-5.6-sol-unrestricted-v{5,24,35}.zip
-├── skill-examples/                    # 原样保留的上游 Agent Skills
-├── scripts/*.zip                      # 可复现评测工具
+├── skill-examples/                              # 原样保留的上游 Agent Skills
+├── scripts/*.zip                                # 可复现评测工具
 ├── unit-tests/
-│   ├── test_codex_instruct.py         # 部署与回滚单元测试
-│   └── test_star_history.py           # Star History 本地渲染与上游补丁测试
-├── .github/workflows/test-codex-instruct.yml # Python 3.8/3.13 CI
-└── docs/architecture/                 # 可编辑的 Draw.io 架构图源文件
+│   ├── test_codex_instruct.py                   # 部署与回滚单元测试
+│   └── test_star_history.py                     # Star History 本地渲染与上游补丁测试
+├── .github/workflows/test-codex-instruct.yml    # Python 3.8/3.13 CI
+└── docs/images/project-architecture-*.webp      # 中英文亮暗架构图
 ```
 
 ### 维护发布包
@@ -272,7 +270,7 @@ python3 sync-archives.py --check
 
 ## 致谢
 
-参考并延展自 [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5)。感谢原作者 [yynxxxxx](https://github.com/yynxxxxx) / li lingbo 的开源工作。
+参考并延展自 [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5)。感谢 [yynxxxxx](https://github.com/yynxxxxx) / li lingbo 的开源工作。
 
 引用的上游 Agent Skills 及其许可证如下：
 

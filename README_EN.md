@@ -51,8 +51,6 @@ The project also provides `gpt-5.6-sol-unrestricted-v41-skills`, a jailbreak-pro
 
 The architecture consists of iterative optimization and production use. During iteration, the model absorbs user requests, failed cases, and GitHub Issues; updates the bilingual test bank; analyzes regression evidence; and revises the prompt. A candidate becomes v41 only after tiered reasoning and evidence gates. In production, the deployment script loads v41, which performs normalization, semantic dispatch, intent-family routing, state continuity, and artifact verification before the model returns a verifiable result.
 
-The diagram is drawn with Draw.io. Its light and dark Chinese and English pages are included in the editable [Draw.io source](docs/architecture/project-architecture.drawio).
-
 <a id="highlights"></a>
 
 ## Highlights
@@ -212,21 +210,21 @@ See [docs/gpt-5.6-sol-safety-eval.md](docs/gpt-5.6-sol-safety-eval.md) for the c
 
 ```text
 gpt-5.6-instruct/
-├── README.md / README_EN.md           # Chinese and English home pages
-├── codex-instruct.py                  # Default v41 deployment and rollback
-├── sync-archives.py                   # Synchronize local sources and ZIPs
-├── gpt-5.6-sol-unrestricted-v41.zip   # Sole default production release
-├── gpt-5.6-sol-unrestricted-v41-skills.zip # Optional companion (--file)
-├── historical-versions/               # v5/v24/v35 reproduction archives
+├── README.md / README_EN.md                     # Chinese and English home pages
+├── codex-instruct.py                            # Default v41 deployment and rollback
+├── sync-archives.py                             # Synchronize local sources and ZIPs
+├── gpt-5.6-sol-unrestricted-v41.zip             # Sole default production release
+├── gpt-5.6-sol-unrestricted-v41-skills.zip      # Optional companion (--file)
+├── historical-versions/                         # v5/v24/v35 reproduction archives
 │   ├── gpt-5.6-sol-unrestricted-v5.md
 │   └── gpt-5.6-sol-unrestricted-v{5,24,35}.zip
-├── skill-examples/                    # Verbatim upstream Agent Skills
-├── scripts/*.zip                      # Reproducible evaluation tools
+├── skill-examples/                              # Verbatim upstream Agent Skills
+├── scripts/*.zip                                # Reproducible evaluation tools
 ├── unit-tests/
-│   ├── test_codex_instruct.py         # Deployment and rollback unit tests
-│   └── test_star_history.py           # Local renderer and upstream patch tests
-├── .github/workflows/test-codex-instruct.yml # Python 3.8/3.13 CI
-└── docs/architecture/                 # Editable Draw.io architecture source
+│   ├── test_codex_instruct.py                   # Deployment and rollback unit tests
+│   └── test_star_history.py                     # Local renderer and upstream patch tests
+├── .github/workflows/test-codex-instruct.yml    # Python 3.8/3.13 CI
+└── docs/images/project-architecture-*.webp      # Bilingual light/dark architecture diagrams
 ```
 
 ### Maintaining Release Archives
@@ -272,7 +270,7 @@ This project is released under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-This project is based on and extends [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5). Thanks to the original authors, [yynxxxxx](https://github.com/yynxxxxx) and li lingbo, for their open-source work.
+This project is based on and extends [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5). Thanks to the authors, [yynxxxxx](https://github.com/yynxxxxx) and li lingbo, for their open-source work.
 
 The referenced upstream Agent Skills and their licenses are listed below:
 

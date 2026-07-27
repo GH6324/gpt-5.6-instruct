@@ -18,7 +18,12 @@ AGENTS.md
 # reports/prompt_candidates/，根目录只保留 v41 生产源及可选 skills 配套源。
 /gpt-5.6-sol-unrestricted-v41.md
 /gpt-5.6-sol-unrestricted-v41-skills.md
-/examples/gpt-5.6-sol-unrestricted.md
+
+# examples/ 仅保留为本地发布与同步工作目录；目录内容不上传 GitHub。
+/examples/
+
+# 架构图公开发布导出的 WebP；可编辑 Draw.io 源文件只在本地保留。
+*.drawio
 
 # 测试脚本内含敏感 prompt/判定样本；仓库仅提交每个脚本对应的同名 ZIP。
 # 不要忽略 scripts/*.zip；修改本地 Python 源文件后运行 `python3 sync-archives.py`。
