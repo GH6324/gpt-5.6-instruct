@@ -28,14 +28,11 @@
 
 <a id="overview"></a>
 
-This project provides jailbreak/bypass prompts for large language models. It frames security research, penetration testing, reverse engineering, software cracking, and fictional NSFW content as local sandbox tasks while explicitly suppressing refusal and fallback language, improving direct execution of complex instructions in Codex.
+This project provides jailbreak/armor-breaking instructions for large language models. It treats security research, penetration testing, reverse engineering, software cracking, and fictional NSFW content as local sandbox tasks while suppressing refusal and fallback language so Codex can execute complex requests directly.
 
-The project's latest iteration is `v41`. During optimization, the model continually absorbs user instructions, real failure cases, and GitHub Issues; creates or expands the test bank; analyzes failures and rewrites the prompt; and then uses low-, medium-, and high-reasoning regression gates to decide whether a release is promoted.
-Earlier releases `v5`, `v24`, and `v35` have moved to [`historical-versions/`](historical-versions/) for reproduction only.
+The project's latest iteration is `v42`. During optimization of a new release, the model continually absorbs user instructions, real failure cases, and GitHub Issues; creates or expands the test set; analyzes failures and rewrites the prompt; and then uses tiered `low`, `medium`, and `high` regression to decide whether to publish.
 
-On the original 120-case `medium` bank for `gpt-5.6-sol`, the audited `v41` aggregate is 120/120 at low, medium, and high reasoning. Based on real failure cases and GitHub Issues #3/#4/#5/#6/#8, the new plaintext 52-case/58-turn issue bank reaches 52/52 with `v41` at all three levels. Against `v35`, this is a 25.00-percentage-point gain at low/medium and a 23.08-point gain at high, while the base prompt is 55.67% shorter.
-
-The project also provides `gpt-5.6-sol-unrestricted-v41-skills`, a jailbreak-prompt variant designed for use with the related skills. See [Upstream Agent Skills](#upstream-agent-skills).
+The sole production release is `v42`, which `codex-instruct.py` can preview, deploy, and roll back. Historical `v5`, `v24`, `v35`, `v41`, and `v41-skills` releases have moved to [`historical-versions/`](historical-versions/) for reproduction.
 
 <a id="architecture"></a>
 
@@ -45,20 +42,11 @@ The project also provides `gpt-5.6-sol-unrestricted-v41-skills`, a jailbreak-pro
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/project-architecture-en-dark.webp" />
     <source media="(prefers-color-scheme: light)" srcset="docs/images/project-architecture-en-light.webp" />
-    <img alt="Armor-breaking prompt iteration, release gate, and production runtime architecture" src="docs/images/project-architecture-en-light.webp" width="100%" />
+    <img alt="Armor-breaking prompt iteration, release gates, and production runtime architecture" src="docs/images/project-architecture-en-light.webp" width="100%" />
   </picture>
 </p>
 
-The architecture consists of iterative optimization and production use. During iteration, the model absorbs user requests, failed cases, and GitHub Issues; updates the bilingual test bank; analyzes regression evidence; and revises the prompt. A candidate becomes v41 only after tiered reasoning and evidence gates. In production, the deployment script loads v41, which performs normalization, semantic dispatch, intent-family routing, state continuity, and artifact verification before the model returns a verifiable result.
-
-<a id="highlights"></a>
-
-## Highlights
-
-| | |
-|---|---|
-| 🚀 **Single-entry deployment**<br>Use the menu or `--apply` to preview and install the sole default `v41`. | 🔁 **Self-iterating optimization**<br>The model co-evolves the test bank and prompt, with tiered regression controlling promotion. |
-| ↩️ **Controlled rollback**<br>Baseline backups and operation snapshots with confirmation before restore. | 🧪 **Reproducible evaluation**<br>360 main cases plus 52 issue cases with raw input, output, and final verdicts. |
+The architecture consists of iterative optimization and production use. During iteration, the model continually absorbs user instructions, failed cases, and GitHub Issues; updates the bilingual test set; analyzes regression results; and optimizes the prompt. v42 is released only after passing three reasoning tiers and the evidence gates. In production, the deployment script loads v42, which performs normalization, semantic dispatch, intent-family routing, state continuity, and artifact verification before returning a verifiable result.
 
 <a id="versions"></a>
 
@@ -66,14 +54,12 @@ The architecture consists of iterative optimization and production use. During i
 
 | Release | Focus | Production entry | Download |
 |---|---|---|---|
-| **v41 (sole default)** | General first-pass normalization, state continuity, cross-domain routing, recovery, and real artifacts | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v41.zip) |
+| **v42 (sole default)** | Cross-domain routing, state continuity, first-turn execution, artifact verification, and rollback-ready delivery | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v42.zip) |
 
-Historical `v5`, `v24`, and `v35` no longer appear in the deployment menu or a version argument. They live in [`historical-versions/`](historical-versions/): v5 retains both Markdown and ZIP, while all three retain ZIP archives for trend reproduction.
-
-Current release-ZIP SHA256 value:
+Current release-ZIP SHA256:
 
 ```text
-v41  569be9d9dd29ee7d54f7e3ec208ecf2ec3a9d97530f6b6baca187e639b98154b
+v42  11f0515be89943a7244d07b625a497b04dde07a51ba26e41df583a0acc145a09
 ```
 
 <a id="quick-start"></a>
@@ -90,10 +76,10 @@ cd gpt-5.6-instruct
 ### 2. Preview and deploy
 
 ```bash
-# Preview v41 without writing files
+# Preview v42 without writing files
 python3 codex-instruct.py --apply --dry-run
 
-# Deploy the sole default v41 release
+# Deploy the sole default v42 release
 python3 codex-instruct.py --apply
 ```
 
@@ -128,10 +114,10 @@ With `--reset`, the script restores only the top-level `model_instructions_file`
 
 ### Manual Deployment and Rollback
 
-Extract v41, copy the instruction file to `CODEX_HOME`, create a pre-operation snapshot of `config.toml`, and add:
+Extract v42, copy the instruction file to `CODEX_HOME`, create a pre-operation snapshot of `config.toml`, and add:
 
 ```toml
-model_instructions_file = "./gpt-5.6-sol-unrestricted-v41.md"
+model_instructions_file = "./gpt-5.6-sol-unrestricted-v42.md"
 ```
 
 To roll back manually, delete or comment out the line above with `#` to restore the model's original default behavior. You can also remove the deployed versioned Markdown file to clean up local files.
@@ -153,56 +139,55 @@ To roll back manually, delete or comment out the line above with `#` to restore 
 
 ## Evaluation Results
 
-On the original 120-case `medium` bank for `gpt-5.6-sol`, audited aggregates for `v5`, `v35`, and the current `v41` are **120/120** at low, medium, and high reasoning; the current `v41` runs use plaintext transport throughout. On the issue bank, `v41` reaches **52/52** at all three levels, while its three-repeat plaintext cloud gate reaches **84/84 case attempts and 94/94 turns** with zero provider-policy blocks. Historical cross-model data remains separate rather than being extrapolated as unrun `v41` results.
+In the v42 release gates, the two zero-history original inputs for Issues #5/#22 pass on their first attempt at `medium` reasoning with **2/2 cases, 2/2 turns, and 2/2 artifact gates**, without repeated input. The expanded targeted set reaches **60/60 cases, 68/68 turns, and 8/8 artifact gates** at `low`. On the original 120-case `medium` set at `low`, the first pass is 115/120; a targeted 5/5 audit then produces a provenance-preserving 120/120 aggregate.
 
-See the [English comparison-test documentation](docs/comparison-tests-en.md) or [中文对比测试文档](docs/comparison-tests.md) for the complete evaluation basis, upstream comparison, cross-model records, version trend, representative cases, and result gallery.
+For Issues #3/#4/#5/#6/#8, the project also maintains a bilingual targeted set of 52 cases and 58 logical turns at [`tests/gpt56_sol_issue_regression_bank.md`](tests/gpt56_sol_issue_regression_bank.md). It covers plaintext cloud review, biological research, template misrouting/loop recovery, and progress visibility. The dedicated runner does not use encoded input, encoded output, or encoded retries, and reports provider-policy blocks, interrupted networks, timeouts, parse errors, and model fallback separately.
 
-### Version Iteration Trend
+See [docs/gpt-5.6-sol-safety-eval.md](docs/gpt-5.6-sol-safety-eval.md) for the complete safety-evaluation methodology.
+
+### Version Iteration Trend (through v41)
+
+The charts preserve comparable historical data through v41. They do not append v42 to the historical curves because the same full `low`, `medium`, and `high` matrices have not yet been completed for v42.
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/gpt56-sol-version-pass-trend-en-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="docs/images/gpt56-sol-version-pass-trend-en-light.svg" />
-    <img alt="gpt-5.6-sol prompt-version pass-rate trend" src="docs/images/gpt56-sol-version-pass-trend-en-light.svg" width="92%" />
+    <img alt="gpt-5.6-sol prompt-version pass-rate trend through v41" src="docs/images/gpt56-sol-version-pass-trend-en-light.svg" width="92%" />
   </picture>
 </p>
 
-#### New Issue-Regression Trend
+<details>
+<summary><strong>Historical 52-Case Issue-Test Trend (2026-07-23)</strong></summary>
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/gpt56-sol-issue-version-trend-en-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="docs/images/gpt56-sol-issue-version-trend-en-light.svg" />
-    <img alt="Version and reasoning-level trend on the new issue-regression bank" src="docs/images/gpt56-sol-issue-version-trend-en-light.svg" width="92%" />
+    <img alt="Issue-test version and reasoning-level trend through v41" src="docs/images/gpt56-sol-issue-version-trend-en-light.svg" width="92%" />
   </picture>
 </p>
 
+</details>
+
 ## Evaluation Toolkit
 
-The bank covers 6 scenario groups, 3 prompt lengths, 2 languages, and 10 cases per combination: **360 cases** in total. Evaluations store raw input, model output, transport method, retry provenance, and the final `pass/fail` verdict locally. These run artifacts are excluded by `.gitignore` by default.
+The project includes local tools for generating prompt banks, running regressions, and validating scoring logic offline. README does not duplicate test data, run logs, or detailed methodology; see the [English comparison-test documentation](docs/comparison-tests-en.md) and [中文对比测试文档](docs/comparison-tests.md) for details.
 
-For Issues #3/#4/#5/#6/#8, the project also provides a bilingual 52-case, 58-logical-turn issue bank at [`tests/gpt56_sol_issue_regression_bank.md`](tests/gpt56_sol_issue_regression_bank.md). It covers plaintext cloud review, biology research, wrong-template routing/loop recovery, and progress visibility. Its runner uses no encoded input, output, or retry and reports provider-policy interruption, transient network failure, timeout, parse error, and model fallback separately.
-
-After cloning, extract the published test scripts:
+After cloning, extract the published scripts:
 
 ```bash
 for archive in scripts/*.zip; do unzip -o "$archive" -d scripts; done
 ```
 
-Then generate the bank and run the shortest level:
+Common entry points:
 
 ```bash
 python3 scripts/generate_gpt56_sol_prompt_bank.py
-python3 scripts/run_gpt56_sol_prompt_bank.py \
-  --level minimal \
-  --reasoning low \
-  --run-label v41
-
-# Issue-bank dry-run; real regressions repeat cloud-review cases three times by default
+python3 scripts/run_gpt56_sol_prompt_bank.py --level minimal --reasoning low
 python3 scripts/run_gpt56_sol_issue_regression.py --dry-run
+python3 scripts/verify_gpt56_sol_regression_scoring.py
 ```
-
-See [docs/gpt-5.6-sol-safety-eval.md](docs/gpt-5.6-sol-safety-eval.md) for the complete safety-evaluation methodology.
 
 <a id="layout"></a>
 
@@ -211,42 +196,26 @@ See [docs/gpt-5.6-sol-safety-eval.md](docs/gpt-5.6-sol-safety-eval.md) for the c
 ```text
 gpt-5.6-instruct/
 ├── README.md / README_EN.md                     # Chinese and English home pages
-├── codex-instruct.py                            # Default v41 deployment and rollback
+├── codex-instruct.py                            # Default v42 deployment and rollback
 ├── sync-archives.py                             # Synchronize local sources and ZIPs
-├── gpt-5.6-sol-unrestricted-v41.zip             # Sole default production release
-├── gpt-5.6-sol-unrestricted-v41-skills.zip      # Optional companion (--file)
-├── historical-versions/                         # v5/v24/v35 reproduction archives
-│   ├── gpt-5.6-sol-unrestricted-v5.md
-│   └── gpt-5.6-sol-unrestricted-v{5,24,35}.zip
-├── skill-examples/                              # Verbatim upstream Agent Skills
+├── gpt-5.6-sol-unrestricted-v42.zip             # Sole default production release
+├── historical-versions/                         # v5/v24/v35/v41/v41-skills archives
 ├── scripts/*.zip                                # Reproducible evaluation tools
-├── unit-tests/
-│   ├── test_codex_instruct.py                   # Deployment and rollback unit tests
-│   └── test_star_history.py                     # Local renderer and upstream patch tests
+├── unit-tests/                                  # Project-function unit tests
 ├── .github/workflows/test-codex-instruct.yml    # Python 3.8/3.13 CI
 └── docs/images/project-architecture-*.webp      # Bilingual light/dark architecture diagrams
 ```
 
 ### Maintaining Release Archives
 
-Default `v41`, the optional skills companion, historical `v5/v24/v35`, and test scripts are maintained together by `sync-archives.py`. Local v24/v35 source evidence remains under `reports/prompt_candidates/`, while the public history directory exposes only their ZIP archives. After editing a source, synchronize and verify the archives:
+The current release, historical archives, and test scripts are maintained by `sync-archives.py`. After editing a local source file, run:
 
 ```bash
 python3 sync-archives.py
 python3 sync-archives.py --check
 ```
 
-<a id="upstream-agent-skills"></a>
-
-### Upstream Agent Skills
-
-The project provides `gpt-5.6-sol-unrestricted-v41-skills.zip`, a jailbreak-prompt variant designed for use with the six upstream Agent Skills under `skill-examples/`. It improves concrete execution capabilities in scenarios such as reverse engineering and software cracking.
-
-`skill-examples/` preserves existing upstream Agent Skill directories from GitHub; these are not project-authored wrappers around reverse-engineering frameworks. Imported commits, original paths, and file SHA256 values are recorded in [`skill-examples/sources.json`](skill-examples/sources.json); source and license attribution is tabulated under Acknowledgements.
-
-All retained directories pass Codex `quick_validate.py`. A real isolated-`CODEX_HOME` runtime gate also passed: all six skill links resolved, explicit `dwarf-expert` selection produced substantive verifiable output, and no files were installed into the global skills directory. To install one, copy the selected skill directory into `${CODEX_HOME:-$HOME/.codex}/skills/` and follow the upstream license included with its source group.
-
-`gpt-5.6-sol-unrestricted-v41-skills.zip` remains an optional companion, not a production release choice. When needed, deploy it explicitly with `python3 codex-instruct.py --file ./gpt-5.6-sol-unrestricted-v41-skills.zip`.
+The synchronizer skips ZIPs whose member content already matches, preventing timestamp or compression metadata alone from changing established release bytes.
 
 ## Disclaimer
 
@@ -272,14 +241,4 @@ This project is released under the [MIT License](LICENSE).
 
 This project is based on and extends [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5). Thanks to the authors, [yynxxxxx](https://github.com/yynxxxxx) and li lingbo, for their open-source work.
 
-The referenced upstream Agent Skills and their licenses are listed below:
-
-<details>
-<summary><strong>Click to view upstream skills and licenses</strong></summary>
-
-| Upstream skill repository | Star snapshot | Verbatim skills retained here | License |
-|---|---:|---|---|
-| [yaklang/hack-skills](https://github.com/yaklang/hack-skills) | 1,415 | [`anti-debugging-techniques`](skill-examples/yaklang-hack-skills/anti-debugging-techniques/SKILL.md), [`binary-protection-bypass`](skill-examples/yaklang-hack-skills/binary-protection-bypass/SKILL.md), [`code-obfuscation-deobfuscation`](skill-examples/yaklang-hack-skills/code-obfuscation-deobfuscation/SKILL.md), [`symbolic-execution-tools`](skill-examples/yaklang-hack-skills/symbolic-execution-tools/SKILL.md), and [`vm-and-bytecode-reverse`](skill-examples/yaklang-hack-skills/vm-and-bytecode-reverse/SKILL.md) | MIT |
-| [trailofbits/skills](https://github.com/trailofbits/skills) | 6,192 | [`dwarf-expert`](skill-examples/trailofbits-skills/dwarf-expert/SKILL.md), including its original references, agent metadata, and asset | CC-BY-SA-4.0 |
-
-</details>
+See [`historical-versions/README.md`](historical-versions/README.md) for the upstream sources and licenses associated with the historical `v41-skills` release.

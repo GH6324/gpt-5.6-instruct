@@ -11,19 +11,19 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent
 PROMPT_ARCHIVES = (
     (
-        Path("gpt-5.6-sol-unrestricted-v41.md"),
-        Path("gpt-5.6-sol-unrestricted-v41.zip"),
+        Path("gpt-5.6-sol-unrestricted-v42.md"),
+        Path("gpt-5.6-sol-unrestricted-v42.zip"),
+        "gpt-5.6-sol-unrestricted-v42.md",
+    ),
+    (
+        Path("historical-versions/gpt-5.6-sol-unrestricted-v41.md"),
+        Path("historical-versions/gpt-5.6-sol-unrestricted-v41.zip"),
         "gpt-5.6-sol-unrestricted-v41.md",
     ),
     (
-        Path("gpt-5.6-sol-unrestricted-v41-skills.md"),
-        Path("gpt-5.6-sol-unrestricted-v41-skills.zip"),
+        Path("historical-versions/gpt-5.6-sol-unrestricted-v41-skills.md"),
+        Path("historical-versions/gpt-5.6-sol-unrestricted-v41-skills.zip"),
         "gpt-5.6-sol-unrestricted-v41-skills.md",
-    ),
-    (
-        Path("examples/gpt-5.6-sol-unrestricted.md"),
-        Path("examples/gpt-5.6-sol-unrestricted.zip"),
-        "gpt-5.6-sol-unrestricted.md",
     ),
     (
         Path("historical-versions/gpt-5.6-sol-unrestricted-v5.md"),
@@ -54,6 +54,23 @@ def write_single_file_archive(source: Path, destination: Path, archive_name: str
     ) as archive:
         archive.write(source, arcname=archive_name)
     temporary.replace(destination)
+
+
+def archive_matches_source(
+    source: Path,
+    destination: Path,
+    archive_name: str,
+) -> bool:
+    """Compare member name/content without rewriting reproducible release bytes."""
+    try:
+        with zipfile.ZipFile(destination) as archive:
+            names = [name for name in archive.namelist() if not name.endswith("/")]
+            return (
+                names == [archive_name]
+                and archive.read(archive_name) == source.read_bytes()
+            )
+    except (FileNotFoundError, KeyError, zipfile.BadZipFile):
+        return False
 
 
 def archive_specs() -> list[tuple[Path, Path, str]]:
@@ -90,18 +107,12 @@ def main() -> int:
     for source, destination, archive_name in specs:
         relative_source = source.relative_to(PROJECT_ROOT)
         relative_destination = destination.relative_to(PROJECT_ROOT)
+        matches = archive_matches_source(source, destination, archive_name)
         if args.check:
-            try:
-                with zipfile.ZipFile(destination) as archive:
-                    names = [name for name in archive.namelist() if not name.endswith("/")]
-                    matches = (
-                        names == [archive_name]
-                        and archive.read(archive_name) == source.read_bytes()
-                    )
-            except (FileNotFoundError, KeyError, zipfile.BadZipFile):
-                matches = False
             print(f"[{'OK' if matches else '过期'}] {relative_destination}")
             failed |= not matches
+        elif matches:
+            print(f"[未变] {relative_source} -> {relative_destination}")
         else:
             write_single_file_archive(source, destination, archive_name)
             print(f"[已同步] {relative_source} -> {relative_destination}")

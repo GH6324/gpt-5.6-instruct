@@ -1,5 +1,7 @@
 # Validate deployment and rollback behavior on the oldest and newest supported Python releases.
 # The tests use temporary CODEX_HOME directories and never touch a runner user configuration.
+# unit-tests intentionally cover project functionality only; prompt capability and
+# scorer/bank verification live under scripts and are not part of this CI verdict.
 name: Test codex-instruct
 
 # Run when deployment behavior, Star History data/render behavior, tests, or this workflow changes.
@@ -7,6 +9,7 @@ on:
   pull_request:
     paths:
       - "codex-instruct.py"
+      - "sync-archives.py"
       - ".github/scripts/star_history.py"
       - ".github/data/star-history-data.json"
       - "unit-tests/**"
@@ -16,6 +19,7 @@ on:
       - main
     paths:
       - "codex-instruct.py"
+      - "sync-archives.py"
       - ".github/scripts/star_history.py"
       - ".github/data/star-history-data.json"
       - "unit-tests/**"
@@ -53,6 +57,7 @@ jobs:
         run: >-
           python -m py_compile
           codex-instruct.py
+          sync-archives.py
           .github/scripts/star_history.py
           unit-tests/*.py
 
