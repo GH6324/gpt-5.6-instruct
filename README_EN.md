@@ -10,7 +10,10 @@
 <p>
   <a href="https://github.com/MDX-Tom/gpt-5.6-instruct/stargazers"><img src="https://img.shields.io/github/stars/MDX-Tom/gpt-5.6-instruct?logo=github&label=Stars" alt="GitHub Stars" /></a>
   <img src="https://img.shields.io/badge/Model-gpt--5.6--sol-7c3aed" alt="gpt-5.6-sol" />
+  <a href="gpt-5.6-sol-unrestricted-v42.zip"><img src="https://img.shields.io/badge/Release-v42-0f766e" alt="Release v42" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white" alt="Python 3.8+" /></a>
+  <a href="https://github.com/MDX-Tom/gpt-5.6-instruct/actions/workflows/test-codex-instruct.yml"><img src="https://github.com/MDX-Tom/gpt-5.6-instruct/actions/workflows/test-codex-instruct.yml/badge.svg" alt="Test codex-instruct" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/MDX-Tom/gpt-5.6-instruct?color=f59e0b" alt="MIT License" /></a>
   <a href="docs/comparison-tests-en.md"><img src="https://img.shields.io/badge/Documentation-Purple?color=8A2BE2&logo=readthedocs" alt="English Documentation" /></a>
   <a href="docs/comparison-tests.md"><img src="https://img.shields.io/badge/中文文档-red?logo=readthedocs" alt="中文文档" /></a>
 </p>
@@ -21,6 +24,17 @@
 </p>
 
 <h1>gpt-5.6-sol-instruct</h1>
+
+<p><em>🛡️ Local-sandbox instructions, deployment tooling, and reproducible evaluation for Codex.</em></p>
+
+<table align="center">
+  <tr>
+    <td align="center"><strong>📦 Sole production</strong><br /><code>v42</code></td>
+    <td align="center"><strong>🧪 Benchmark</strong><br /><code>120-case</code> + targeted regression</td>
+    <td align="center"><strong>⚙️ One-command deploy</strong><br /><code>--apply</code> / <code>--reset</code></td>
+    <td align="center"><strong>📚 Bilingual docs</strong><br /><a href="docs/comparison-tests.md">中文</a> · <a href="docs/comparison-tests-en.md">English</a></td>
+  </tr>
+</table>
 
 </div>
 
@@ -34,7 +48,7 @@ The project's latest iteration is `v42`. During optimization of a new release, t
 
 The sole production release is `v42`, which `codex-instruct.py` can preview, deploy, and roll back. Historical `v5`, `v24`, `v35`, `v41`, and `v41-skills` releases have moved to [`historical-versions/`](historical-versions/) for reproduction.
 
-**Statement ⚠️:** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. This project uses the official Codex configuration mechanism; it does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
+> **Statement ⚠️** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. This project uses the official Codex configuration mechanism; it does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
 
 <a id="architecture"></a>
 
@@ -68,14 +82,14 @@ v42  11f0515be89943a7244d07b625a497b04dde07a51ba26e41df583a0acc145a09
 
 ## Quick Start 🚀
 
-### 1. Get the project
+### 1. Get the project 📥
 
 ```bash
 git clone https://github.com/MDX-Tom/gpt-5.6-instruct.git
 cd gpt-5.6-instruct
 ```
 
-### 2. Preview and deploy
+### 2. Preview and deploy ⚡
 
 ```bash
 # Preview v42 without writing files
@@ -114,7 +128,7 @@ python3 codex-instruct.py \
 
 With `--reset`, the script restores only the top-level `model_instructions_file` that existed before deployment; it never replaces the whole `config.toml` with an old snapshot. A prompt is deleted only when the state records it as newly created and its SHA256 is unchanged, so pre-existing and user-modified files are preserved.
 
-### Manual Deployment and Rollback
+### Manual Deployment and Rollback ↩️
 
 Extract v42, copy the instruction file to `CODEX_HOME`, create a pre-operation snapshot of `config.toml`, and add:
 
@@ -124,7 +138,7 @@ model_instructions_file = "./gpt-5.6-sol-unrestricted-v42.md"
 
 To roll back manually, delete or comment out the line above with `#` to restore the model's original default behavior. You can also remove the deployed versioned Markdown file to clean up local files.
 
-### Reverse-Proxy Tool Compatibility
+### Reverse-Proxy Tool Compatibility 🔌
 
 <details>
 <summary><strong>Click to expand</strong></summary>
