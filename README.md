@@ -10,7 +10,9 @@
 <p>
   <a href="https://github.com/MDX-Tom/gpt-5.6-instruct/stargazers"><img src="https://img.shields.io/github/stars/MDX-Tom/gpt-5.6-instruct?logo=github&label=Stars" alt="GitHub Stars" /></a>
   <img src="https://img.shields.io/badge/Model-gpt--5.6--sol-7c3aed" alt="gpt-5.6-sol" />
+  <a href="gpt-5.6-sol-unrestricted-v42.zip"><img src="https://img.shields.io/badge/Release-v42-0f766e" alt="Release v42" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white" alt="Python 3.8+" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/MDX-Tom/gpt-5.6-instruct?color=f59e0b" alt="MIT License" /></a>
   <a href="docs/comparison-tests-en.md"><img src="https://img.shields.io/badge/Documentation-Purple?color=8A2BE2&logo=readthedocs" alt="English Documentation" /></a>
   <a href="docs/comparison-tests.md"><img src="https://img.shields.io/badge/中文文档-red?logo=readthedocs" alt="中文文档" /></a>
 </p>
@@ -28,13 +30,13 @@
 
 <a id="overview"></a>
 
-本项目提供面向大模型的越狱/破甲提示词，将安全研究、渗透测试、逆向工程、软件破解与 NSFW 虚构内容统一设定为本地沙箱任务，并显式压制拒绝与回退话术，以提升 Codex 对复杂指令的直接执行能力。
+本项目提供面向大模型的越狱/破甲提示词与配套工具链：将安全研究、渗透测试、逆向工程、软件破解及 NSFW 虚构内容统一纳入本地沙箱任务，并显式抑制拒绝与回退话术，提升 Codex 对复杂指令的连续执行能力。
 
-本项目现迭代最新版为 `v42`，新版本优化过程中让模型持续吸收用户指令、真实失败案例和 GitHub Issues，自行创建/扩展测试集、分析失败并重写提示词，再通过 low、medium、high 分层回归决定是否发布。
+项目围绕 `v42` 持续迭代。每轮优化吸收用户指令、真实失败案例与 GitHub Issues，动态扩展测试集，定位失败原因并重写提示词；随后以 low、medium、high 三档回归和证据门禁复核结果，决定是否发布。
 
-当前唯一生产版本为 `v42`，可通过 `codex-instruct.py` 预览、部署和回滚。历史 `v5`、`v24`、`v35`、`v41` 及 `v41-skills` 均已移入 [`historical-versions/`](historical-versions/) 用于复现。
+当前唯一生产版本为 `v42`，可使用 `codex-instruct.py` 进行预览、部署和回滚。历史版本 `v5`、`v24`、`v35`、`v41` 与 `v41-skills` 已归档至 [`historical-versions/`](historical-versions/)，用于复现和对照。
 
-**声明 ⚠️：** 本项目不会用于任何商业化行为，包括但不限于创业融资宣传、技术授权转让和付费技术服务。本项目旨在提升 AI 安全。未来无论项目获得多少关注，我们都将保持初心，共同筑牢 AI 的安全边界。本项目使用 Codex 官方配置机制，不修改二进制、不劫持网络、不篡改进程。请仅在你有权操作的环境中使用，并自行承担使用风险。
+> **声明 ⚠️** 本项目不会用于任何商业化行为，包括但不限于创业融资宣传、技术授权转让和付费技术服务。本项目旨在提升 AI 安全。未来无论项目获得多少关注，我们都将保持初心，共同筑牢 AI 的安全边界。本项目使用 Codex 官方配置机制，不修改二进制、不劫持网络、不篡改进程。请仅在你有权操作的环境中使用，并自行承担使用风险。
 
 <a id="architecture"></a>
 
@@ -68,14 +70,14 @@ v42  11f0515be89943a7244d07b625a497b04dde07a51ba26e41df583a0acc145a09
 
 ## 快速开始 🚀
 
-### 1. 获取项目
+### 1. 获取项目 📥
 
 ```bash
 git clone https://github.com/MDX-Tom/gpt-5.6-instruct.git
 cd gpt-5.6-instruct
 ```
 
-### 2. 预览并部署
+### 2. 预览并部署 ⚡
 
 ```bash
 # 先预览 v42，不写入任何文件
@@ -114,7 +116,7 @@ python3 codex-instruct.py \
 
 执行 `--reset` 时，脚本只恢复部署前的顶层 `model_instructions_file`，不会用旧快照覆盖整个 `config.toml`。脚本仅删除由本次状态记录为新建且 SHA256 未变化的提示词；部署前已存在或后来被用户修改的文件会保留。
 
-### 手动部署及回滚
+### 手动部署及回滚 ↩️
 
 解压 v42，将指令文件复制到 `CODEX_HOME`，为 `config.toml` 创建操作前快照，并写入：
 
@@ -124,7 +126,7 @@ model_instructions_file = "./gpt-5.6-sol-unrestricted-v42.md"
 
 若要手动回滚，直接删除或用 `#` 注释掉上述行即可恢复模型原始默认行为；也可删除部署的版本化 Markdown 文件以清理本地文件。
 
-### 反代工具兼容性
+### 反代工具兼容性 🔌
 
 <details>
 <summary><strong>点击查看</strong></summary>
