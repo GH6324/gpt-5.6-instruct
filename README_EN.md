@@ -34,6 +34,8 @@ The project's latest iteration is `v42`. During optimization of a new release, t
 
 The sole production release is `v42`, which `codex-instruct.py` can preview, deploy, and roll back. Historical `v5`, `v24`, `v35`, `v41`, and `v41-skills` releases have moved to [`historical-versions/`](historical-versions/) for reproduction.
 
+**Statement:** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI.
+
 <a id="architecture"></a>
 
 ## System Architecture
