@@ -34,11 +34,11 @@
 
 当前唯一生产版本为 `v42`，可通过 `codex-instruct.py` 预览、部署和回滚。历史 `v5`、`v24`、`v35`、`v41` 及 `v41-skills` 均已移入 [`historical-versions/`](historical-versions/) 用于复现。
 
-**声明：** 本项目不会用于任何商业化行为，包括但不限于创业融资宣传、技术授权转让和付费技术服务。本项目旨在提升 AI 安全。未来无论项目获得多少关注，我们都将保持初心，共同筑牢 AI 的安全边界。
+**声明 ⚠️：** 本项目不会用于任何商业化行为，包括但不限于创业融资宣传、技术授权转让和付费技术服务。本项目旨在提升 AI 安全。未来无论项目获得多少关注，我们都将保持初心，共同筑牢 AI 的安全边界。本项目使用 Codex 官方配置机制，不修改二进制、不劫持网络、不篡改进程。请仅在你有权操作的环境中使用，并自行承担使用风险。
 
 <a id="architecture"></a>
 
-## 系统架构
+## 系统架构 🏗️
 
 <p align="center">
   <picture>
@@ -52,11 +52,11 @@
 
 <a id="versions"></a>
 
-## 默认版本
+## 默认版本 📦
 
-| 版本 | 定位 | 生产入口 | 获取 |
+| 版本 | 定位 | 入口 | 获取 |
 |---|---|---|---|
-| **v42（唯一默认版）** | 跨域路由、状态连续性、首轮执行、工件验证与可回滚交付 | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v42.zip) |
+| **v42** | 唯一生产版 | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v42.zip) |
 
 当前发布 ZIP 的 SHA256：
 
@@ -66,7 +66,7 @@ v42  11f0515be89943a7244d07b625a497b04dde07a51ba26e41df583a0acc145a09
 
 <a id="quick-start"></a>
 
-## 快速开始
+## 快速开始 🚀
 
 ### 1. 获取项目
 
@@ -139,7 +139,7 @@ model_instructions_file = "./gpt-5.6-sol-unrestricted-v42.md"
 
 <a id="results"></a>
 
-## 评测结果
+## 评测结果 📊
 
 v42 发布门禁中，Issues #5/#22 的两个无历史对话原始输入在 `medium` 推理下一次通过 **2/2 cases、2/2 turns、2/2 artifact gates**，无需重复输入。扩展专项集在 `low` 下达到 **60/60 cases、68/68 turns、8/8 artifact gates**；原 120 条 `medium` 测试集在 `low` 下首跑 115/120，定向审计 5/5 后形成保留替换来源的 120/120 汇总。
 
@@ -172,7 +172,7 @@ v42 发布门禁中，Issues #5/#22 的两个无历史对话原始输入在 `med
 
 </details>
 
-## 评测工具
+## 评测工具 🧪
 
 项目提供本地评测脚本，用于生成提示词库、运行回归并离线校验评分逻辑。测试数据、运行日志和详细方法说明不在 README 展开，参见 [中文对比测试文档](docs/comparison-tests.md) 与 [English Documentation](docs/comparison-tests-en.md)。
 
@@ -193,7 +193,7 @@ python3 scripts/verify_gpt56_sol_regression_scoring.py
 
 <a id="layout"></a>
 
-## 项目结构
+## 项目结构 🗂️
 
 ```text
 gpt-5.6-instruct/
@@ -219,15 +219,11 @@ python3 sync-archives.py --check
 
 同步器会跳过内容已经匹配的 ZIP，避免仅因时间戳或压缩元数据变化而改变既有发布包字节。
 
-## 声明
-
-本项目使用 Codex 官方配置机制，不修改二进制、不劫持网络、不篡改进程。请仅在你有权操作的环境中使用，并自行承担使用风险。
-
-## License
+## 许可证 📄
 
 本项目采用 [MIT License](LICENSE)。
 
-## Star History
+## Star History ⭐
 
 <p align="center">
   <a href="https://www.star-history.com/?repos=MDX-Tom%2Fgpt-5.6-instruct&type=date&legend=top-left">
@@ -239,7 +235,7 @@ python3 sync-archives.py --check
   </a>
 </p>
 
-## 致谢
+## 致谢 🙏
 
 参考并延展自 [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5)。感谢 [yynxxxxx](https://github.com/yynxxxxx) / li lingbo 的开源工作。
 

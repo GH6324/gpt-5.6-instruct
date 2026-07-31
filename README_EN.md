@@ -34,11 +34,11 @@ The project's latest iteration is `v42`. During optimization of a new release, t
 
 The sole production release is `v42`, which `codex-instruct.py` can preview, deploy, and roll back. Historical `v5`, `v24`, `v35`, `v41`, and `v41-skills` releases have moved to [`historical-versions/`](historical-versions/) for reproduction.
 
-**Statement:** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI.
+**Statement ⚠️:** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. This project uses the official Codex configuration mechanism; it does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
 
 <a id="architecture"></a>
 
-## System Architecture
+## System Architecture 🏗️
 
 <p align="center">
   <picture>
@@ -52,11 +52,11 @@ The architecture consists of iterative optimization and production use. During i
 
 <a id="versions"></a>
 
-## Default Release
+## Default Release 📦
 
-| Release | Focus | Production entry | Download |
+| Release | Role | Entry | Download |
 |---|---|---|---|
-| **v42 (sole default)** | Cross-domain routing, state continuity, first-turn execution, artifact verification, and rollback-ready delivery | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v42.zip) |
+| **v42** | Sole production release | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v42.zip) |
 
 Current release-ZIP SHA256:
 
@@ -66,7 +66,7 @@ v42  11f0515be89943a7244d07b625a497b04dde07a51ba26e41df583a0acc145a09
 
 <a id="quick-start"></a>
 
-## Quick Start
+## Quick Start 🚀
 
 ### 1. Get the project
 
@@ -139,7 +139,7 @@ To roll back manually, delete or comment out the line above with `#` to restore 
 
 <a id="results"></a>
 
-## Evaluation Results
+## Evaluation Results 📊
 
 In the v42 release gates, the two zero-history original inputs for Issues #5/#22 pass on their first attempt at `medium` reasoning with **2/2 cases, 2/2 turns, and 2/2 artifact gates**, without repeated input. The expanded targeted set reaches **60/60 cases, 68/68 turns, and 8/8 artifact gates** at `low`. On the original 120-case `medium` set at `low`, the first pass is 115/120; a targeted 5/5 audit then produces a provenance-preserving 120/120 aggregate.
 
@@ -172,7 +172,7 @@ The charts preserve comparable historical data through v41. They do not append v
 
 </details>
 
-## Evaluation Toolkit
+## Evaluation Toolkit 🧪
 
 The project includes local tools for generating prompt banks, running regressions, and validating scoring logic offline. README does not duplicate test data, run logs, or detailed methodology; see the [English comparison-test documentation](docs/comparison-tests-en.md) and [中文对比测试文档](docs/comparison-tests.md) for details.
 
@@ -193,7 +193,7 @@ python3 scripts/verify_gpt56_sol_regression_scoring.py
 
 <a id="layout"></a>
 
-## Project Layout
+## Project Layout 🗂️
 
 ```text
 gpt-5.6-instruct/
@@ -219,15 +219,11 @@ python3 sync-archives.py --check
 
 The synchronizer skips ZIPs whose member content already matches, preventing timestamp or compression metadata alone from changing established release bytes.
 
-## Disclaimer
-
-This project uses the official Codex configuration mechanism. It does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
-
-## License
+## License 📄
 
 This project is released under the [MIT License](LICENSE).
 
-## Star History
+## Star History ⭐
 
 <p align="center">
   <a href="https://www.star-history.com/?repos=MDX-Tom%2Fgpt-5.6-instruct&type=date&legend=top-left">
@@ -239,7 +235,7 @@ This project is released under the [MIT License](LICENSE).
   </a>
 </p>
 
-## Acknowledgements
+## Acknowledgements 🙏
 
 This project is based on and extends [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5). Thanks to the authors, [yynxxxxx](https://github.com/yynxxxxx) and li lingbo, for their open-source work.
 
