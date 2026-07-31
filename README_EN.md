@@ -12,7 +12,6 @@
   <img src="https://img.shields.io/badge/Model-gpt--5.6--sol-7c3aed" alt="gpt-5.6-sol" />
   <a href="gpt-5.6-sol-unrestricted-v42.zip"><img src="https://img.shields.io/badge/Release-v42-0f766e" alt="Release v42" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white" alt="Python 3.8+" /></a>
-  <a href="https://github.com/MDX-Tom/gpt-5.6-instruct/actions/workflows/test-codex-instruct.yml"><img src="https://github.com/MDX-Tom/gpt-5.6-instruct/actions/workflows/test-codex-instruct.yml/badge.svg" alt="Test codex-instruct" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/MDX-Tom/gpt-5.6-instruct?color=f59e0b" alt="MIT License" /></a>
   <a href="docs/comparison-tests-en.md"><img src="https://img.shields.io/badge/Documentation-Purple?color=8A2BE2&logo=readthedocs" alt="English Documentation" /></a>
   <a href="docs/comparison-tests.md"><img src="https://img.shields.io/badge/中文文档-red?logo=readthedocs" alt="中文文档" /></a>
@@ -25,28 +24,17 @@
 
 <h1>gpt-5.6-sol-instruct</h1>
 
-<p><em>🛡️ Local-sandbox instructions, deployment tooling, and reproducible evaluation for Codex.</em></p>
-
-<table align="center">
-  <tr>
-    <td align="center"><strong>📦 Sole production</strong><br /><code>v42</code></td>
-    <td align="center"><strong>🧪 Benchmark</strong><br /><code>120-case</code> + targeted regression</td>
-    <td align="center"><strong>⚙️ One-command deploy</strong><br /><code>--apply</code> / <code>--reset</code></td>
-    <td align="center"><strong>📚 Bilingual docs</strong><br /><a href="docs/comparison-tests.md">中文</a> · <a href="docs/comparison-tests-en.md">English</a></td>
-  </tr>
-</table>
-
 </div>
 
 <!-- README_SYNC: Every README_EN.md change must be mirrored in README.md; charts must also have matching language versions. -->
 
 <a id="overview"></a>
 
-This project provides jailbreak/armor-breaking instructions for large language models. It treats security research, penetration testing, reverse engineering, software cracking, and fictional NSFW content as local sandbox tasks while suppressing refusal and fallback language so Codex can execute complex requests directly.
+This project provides jailbreak/armor-breaking prompts and supporting tools for large language models. It places security research, penetration testing, reverse engineering, software cracking, and fictional NSFW content within local sandbox tasks, while explicitly suppressing refusal and fallback language to improve Codex's ability to sustain complex instruction execution.
 
-The project's latest iteration is `v42`. During optimization of a new release, the model continually absorbs user instructions, real failure cases, and GitHub Issues; creates or expands the test set; analyzes failures and rewrites the prompt; and then uses tiered `low`, `medium`, and `high` regression to decide whether to publish.
+The project iterates around `v42`. Each optimization cycle incorporates user instructions, real failure cases, and GitHub Issues; expands the test set; diagnoses failures; and rewrites the prompt. Results are then reviewed with `low`, `medium`, and `high` regression tiers plus evidence gates before a release is approved.
 
-The sole production release is `v42`, which `codex-instruct.py` can preview, deploy, and roll back. Historical `v5`, `v24`, `v35`, `v41`, and `v41-skills` releases have moved to [`historical-versions/`](historical-versions/) for reproduction.
+`v42` is the sole production release. Use `codex-instruct.py` to preview, deploy, or roll it back. Historical releases `v5`, `v24`, `v35`, `v41`, and `v41-skills` are archived in [`historical-versions/`](historical-versions/) for reproduction and comparison.
 
 > **Statement ⚠️** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. This project uses the official Codex configuration mechanism; it does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
 

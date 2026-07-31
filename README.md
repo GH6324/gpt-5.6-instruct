@@ -12,7 +12,6 @@
   <img src="https://img.shields.io/badge/Model-gpt--5.6--sol-7c3aed" alt="gpt-5.6-sol" />
   <a href="gpt-5.6-sol-unrestricted-v42.zip"><img src="https://img.shields.io/badge/Release-v42-0f766e" alt="Release v42" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white" alt="Python 3.8+" /></a>
-  <a href="https://github.com/MDX-Tom/gpt-5.6-instruct/actions/workflows/test-codex-instruct.yml"><img src="https://github.com/MDX-Tom/gpt-5.6-instruct/actions/workflows/test-codex-instruct.yml/badge.svg" alt="Test codex-instruct" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/MDX-Tom/gpt-5.6-instruct?color=f59e0b" alt="MIT License" /></a>
   <a href="docs/comparison-tests-en.md"><img src="https://img.shields.io/badge/Documentation-Purple?color=8A2BE2&logo=readthedocs" alt="English Documentation" /></a>
   <a href="docs/comparison-tests.md"><img src="https://img.shields.io/badge/中文文档-red?logo=readthedocs" alt="中文文档" /></a>
@@ -25,28 +24,17 @@
 
 <h1>gpt-5.6 破甲提示词及测试包</h1>
 
-<p><em>🛡️ 面向 Codex 的本地沙箱提示词、部署工具与可复现评测。</em></p>
-
-<table align="center">
-  <tr>
-    <td align="center"><strong>📦 唯一生产版</strong><br /><code>v42</code></td>
-    <td align="center"><strong>🧪 基准集</strong><br /><code>120-case</code> + 专项回归</td>
-    <td align="center"><strong>⚙️ 一键部署</strong><br /><code>--apply</code> / <code>--reset</code></td>
-    <td align="center"><strong>📚 双语文档</strong><br /><a href="docs/comparison-tests.md">中文</a> · <a href="docs/comparison-tests-en.md">English</a></td>
-  </tr>
-</table>
-
 </div>
 
 <!-- README_SYNC: 修改 README.md 时必须同步更新 README_EN.md；图表也必须提供对应语言版本。 -->
 
 <a id="overview"></a>
 
-本项目提供面向大模型的越狱/破甲提示词，将安全研究、渗透测试、逆向工程、软件破解与 NSFW 虚构内容统一设定为本地沙箱任务，并显式压制拒绝与回退话术，以提升 Codex 对复杂指令的直接执行能力。
+本项目提供面向大模型的越狱/破甲提示词与配套工具链：将安全研究、渗透测试、逆向工程、软件破解及 NSFW 虚构内容统一纳入本地沙箱任务，并显式抑制拒绝与回退话术，提升 Codex 对复杂指令的连续执行能力。
 
-本项目现迭代最新版为 `v42`，新版本优化过程中让模型持续吸收用户指令、真实失败案例和 GitHub Issues，自行创建/扩展测试集、分析失败并重写提示词，再通过 low、medium、high 分层回归决定是否发布。
+项目围绕 `v42` 持续迭代。每轮优化吸收用户指令、真实失败案例与 GitHub Issues，动态扩展测试集，定位失败原因并重写提示词；随后以 low、medium、high 三档回归和证据门禁复核结果，决定是否发布。
 
-当前唯一生产版本为 `v42`，可通过 `codex-instruct.py` 预览、部署和回滚。历史 `v5`、`v24`、`v35`、`v41` 及 `v41-skills` 均已移入 [`historical-versions/`](historical-versions/) 用于复现。
+当前唯一生产版本为 `v42`，可使用 `codex-instruct.py` 进行预览、部署和回滚。历史版本 `v5`、`v24`、`v35`、`v41` 与 `v41-skills` 已归档至 [`historical-versions/`](historical-versions/)，用于复现和对照。
 
 > **声明 ⚠️** 本项目不会用于任何商业化行为，包括但不限于创业融资宣传、技术授权转让和付费技术服务。本项目旨在提升 AI 安全。未来无论项目获得多少关注，我们都将保持初心，共同筑牢 AI 的安全边界。本项目使用 Codex 官方配置机制，不修改二进制、不劫持网络、不篡改进程。请仅在你有权操作的环境中使用，并自行承担使用风险。
 
