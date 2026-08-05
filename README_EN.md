@@ -36,7 +36,12 @@ The project iterates around `v42`. Each optimization cycle incorporates user ins
 
 `v42` is the sole production release. Use `codex-instruct.py` to preview, deploy, or roll it back. Historical releases `v5`, `v24`, `v35`, `v41`, and `v41-skills` are archived in [`historical-versions/`](historical-versions/) for reproduction and comparison.
 
-> **Statement ⚠️** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. This project uses the official Codex configuration mechanism; it does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
+> **Statement ⚠️** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. 
+
+> [!IMPORTANT]
+> Jailbreaking may lead to account deactivation. It is recommended to use disposable accounts.
+> 
+> This project uses the official Codex configuration mechanism; it does not modify binaries, intercept network traffic, or tamper with processes. Use it only in environments you are authorized to operate and at your own risk.
 
 <a id="architecture"></a>
 
