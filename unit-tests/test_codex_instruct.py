@@ -31,14 +31,14 @@ class ManagedConfigTests(unittest.TestCase):
         config_path.write_text(text, encoding="utf-8")
         return temporary_directory, config_path
 
-    def test_v42_is_the_only_default_release(self) -> None:
+    def test_v45_is_the_only_default_release(self) -> None:
         self.assertEqual(
             codex_instruct.DEFAULT_PROMPT_MD_FILENAME,
-            "gpt-5.6-sol-unrestricted-v42.md",
+            "gpt-5.6-sol-unrestricted-v45.md",
         )
         self.assertEqual(
             codex_instruct.DEFAULT_PROMPT_ARCHIVE.name,
-            "gpt-5.6-sol-unrestricted-v42.zip",
+            "gpt-5.6-sol-unrestricted-v45.zip",
         )
         self.assertFalse(hasattr(codex_instruct, "PROMPT_VERSIONS"))
         self.assertEqual(
@@ -48,6 +48,7 @@ class ManagedConfigTests(unittest.TestCase):
                 "gpt-5.6-sol-unrestricted-v35.md",
                 "gpt-5.6-sol-unrestricted-v41.md",
                 "gpt-5.6-sol-unrestricted-v41-skills.md",
+                "gpt-5.6-sol-unrestricted-v42.md",
             },
         )
 
@@ -61,12 +62,12 @@ class ManagedConfigTests(unittest.TestCase):
 
         codex_instruct.prepare_deployment_state(
             config_path,
-            "gpt-5.6-sol-unrestricted-v42.md",
+            "gpt-5.6-sol-unrestricted-v45.md",
             "test instructions\n",
         )
         codex_instruct.set_model_instructions(
             config_path,
-            "gpt-5.6-sol-unrestricted-v42.md",
+            "gpt-5.6-sol-unrestricted-v45.md",
         )
         changed, status = codex_instruct.restore_managed_model_instructions(config_path)
 
@@ -84,18 +85,18 @@ class ManagedConfigTests(unittest.TestCase):
 
         codex_instruct.prepare_deployment_state(
             config_path,
-            "gpt-5.6-sol-unrestricted-v42.md",
+            "gpt-5.6-sol-unrestricted-v45.md",
             "test instructions\n",
         )
         codex_instruct.set_model_instructions(
             config_path,
-            "gpt-5.6-sol-unrestricted-v42.md",
+            "gpt-5.6-sol-unrestricted-v45.md",
         )
         codex_instruct.restore_managed_model_instructions(config_path)
 
         text = config_path.read_text(encoding="utf-8")
         self.assertEqual(text.count(nested_line), 1)
-        self.assertNotIn("gpt-5.6-sol-unrestricted-v42.md", text)
+        self.assertNotIn("gpt-5.6-sol-unrestricted-v45.md", text)
 
     # Legacy backups contribute only the prior instruction entry, never stale provider data.
     def test_legacy_baseline_migrates_only_previous_instruction(self) -> None:
@@ -235,7 +236,7 @@ class ManagedConfigTests(unittest.TestCase):
 
         codex_instruct.set_model_instructions(
             config_path,
-            "gpt-5.6-sol-unrestricted-v42.md",
+            "gpt-5.6-sol-unrestricted-v45.md",
         )
 
         self.assertTrue(config_path.is_symlink())

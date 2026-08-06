@@ -11,8 +11,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent
 PROMPT_ARCHIVES = (
     (
-        Path("gpt-5.6-sol-unrestricted-v42.md"),
-        Path("gpt-5.6-sol-unrestricted-v42.zip"),
+        Path("gpt-5.6-sol-unrestricted-v45.md"),
+        Path("gpt-5.6-sol-unrestricted-v45.zip"),
+        "gpt-5.6-sol-unrestricted-v45.md",
+    ),
+    (
+        Path("historical-versions/gpt-5.6-sol-unrestricted-v42.md"),
+        Path("historical-versions/gpt-5.6-sol-unrestricted-v42.zip"),
         "gpt-5.6-sol-unrestricted-v42.md",
     ),
     (

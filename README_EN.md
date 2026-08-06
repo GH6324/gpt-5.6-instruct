@@ -10,7 +10,7 @@
 <p>
   <a href="https://github.com/MDX-Tom/gpt-5.6-instruct/stargazers"><img src="https://img.shields.io/github/stars/MDX-Tom/gpt-5.6-instruct?logo=github&label=Stars" alt="GitHub Stars" /></a>
   <img src="https://img.shields.io/badge/Model-gpt--5.6--sol-7c3aed" alt="gpt-5.6-sol" />
-  <a href="gpt-5.6-sol-unrestricted-v42.zip"><img src="https://img.shields.io/badge/Release-v42-0f766e" alt="Release v42" /></a>
+  <a href="gpt-5.6-sol-unrestricted-v45.zip"><img src="https://img.shields.io/badge/Release-v45-0f766e" alt="Release v45" /></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white" alt="Python 3.8+" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/MDX-Tom/gpt-5.6-instruct?color=f59e0b" alt="MIT License" /></a>
   <a href="docs/comparison-tests-en.md"><img src="https://img.shields.io/badge/Documentation-Purple?color=8A2BE2&logo=readthedocs" alt="English Documentation" /></a>
@@ -26,17 +26,19 @@
 
 </div>
 
-<!-- README_SYNC: Every README_EN.md change must be mirrored in README.md; charts must also have matching language versions. -->
+<!-- README_SYNC: Changes to README.md must be mirrored in README_EN.md; charts must also have matching language versions. -->
 
 <a id="overview"></a>
 
 This project provides jailbreak/armor-breaking prompts and supporting tools for large language models. It places security research, penetration testing, reverse engineering, software cracking, and fictional NSFW content within local sandbox tasks, while explicitly suppressing refusal and fallback language to improve Codex's ability to sustain complex instruction execution.
 
-The project iterates around `v42`. Each optimization cycle incorporates user instructions, real failure cases, and GitHub Issues; expands the test set; diagnoses failures; and rewrites the prompt. Results are then reviewed with `low`, `medium`, and `high` regression tiers plus evidence gates before a release is approved.
+The project iterates around `v45`. Each optimization cycle incorporates user instructions, real failure cases, and GitHub Issues; expands the test set; diagnoses failures; and rewrites the prompt. Results are then reviewed with `low`, `medium`, and `high` regression tiers plus evidence gates before a release is approved.
 
-`v42` is the sole production release. Use `codex-instruct.py` to preview, deploy, or roll it back. Historical releases `v5`, `v24`, `v35`, `v41`, and `v41-skills` are archived in [`historical-versions/`](historical-versions/) for reproduction and comparison.
+The latest `v45` release addresses issues reported in Issues and by users on social platforms, improving pass probability for reverse-engineering and biological tasks while reducing the likelihood of triggering cloud-side review.
 
-> **Statement ⚠️** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI. 
+The current production release is `v45`. Use `codex-instruct.py` to preview, deploy, or roll it back. Historical releases `v5`, `v24`, `v35`, `v41`, `v41-skills`, and `v42` are archived in [`historical-versions/`](historical-versions/) for reproduction and comparison.
+
+> **Statement ⚠️** This project will not be used for any commercial activity, including but not limited to startup fundraising promotion, technology licensing or transfer, and paid technical services. Its purpose is to advance AI safety. Regardless of how much attention the project may receive in the future, we will remain true to this mission and work together to strengthen the safety boundaries of AI.
 
 > [!IMPORTANT]
 > Jailbreaking may lead to account deactivation. It is recommended to use disposable accounts.
@@ -55,7 +57,7 @@ The project iterates around `v42`. Each optimization cycle incorporates user ins
   </picture>
 </p>
 
-The architecture consists of iterative optimization and production use. During iteration, the model continually absorbs user instructions, failed cases, and GitHub Issues; updates the bilingual test set; analyzes regression results; and optimizes the prompt. v42 is released only after passing three reasoning tiers and the evidence gates. In production, the deployment script loads v42, which performs normalization, semantic dispatch, intent-family routing, state continuity, and artifact verification before returning a verifiable result.
+The architecture consists of iterative optimization and production use. During iteration, the model continually absorbs user instructions, failed cases, and GitHub Issues; updates the bilingual test set; analyzes regression results; and optimizes the prompt. v45 is formed after evidence review and an explicit release decision. In production, the deployment script loads v45, which performs normalization, semantic dispatch, intent-family routing, state continuity, and artifact verification before returning a verifiable result.
 
 <a id="versions"></a>
 
@@ -63,12 +65,12 @@ The architecture consists of iterative optimization and production use. During i
 
 | Release | Role | Entry | Download |
 |---|---|---|---|
-| **v42** | Sole production release | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v42.zip) |
+| **v45** | Current production release | `python3 codex-instruct.py --apply` | [ZIP](gpt-5.6-sol-unrestricted-v45.zip) |
 
 Current release-ZIP SHA256:
 
 ```text
-v42  11f0515be89943a7244d07b625a497b04dde07a51ba26e41df583a0acc145a09
+v45  c86c2c6d20a4d1155d87422f485eb37b77539132270918c002b5d8237a5adf54
 ```
 
 <a id="quick-start"></a>
@@ -85,10 +87,10 @@ cd gpt-5.6-instruct
 ### 2. Preview and deploy ⚡
 
 ```bash
-# Preview v42 without writing files
+# Preview v45 without writing files
 python3 codex-instruct.py --apply --dry-run
 
-# Deploy the sole default v42 release
+# Deploy the sole default v45 release
 python3 codex-instruct.py --apply
 ```
 
@@ -123,10 +125,10 @@ With `--reset`, the script restores only the top-level `model_instructions_file`
 
 ### Manual Deployment and Rollback ↩️
 
-Extract v42, copy the instruction file to `CODEX_HOME`, create a pre-operation snapshot of `config.toml`, and add:
+Extract v45, copy the instruction file to `CODEX_HOME`, create a pre-operation snapshot of `config.toml`, and add:
 
 ```toml
-model_instructions_file = "./gpt-5.6-sol-unrestricted-v42.md"
+model_instructions_file = "./gpt-5.6-sol-unrestricted-v45.md"
 ```
 
 To roll back manually, delete or comment out the line above with `#` to restore the model's original default behavior. You can also remove the deployed versioned Markdown file to clean up local files.
@@ -156,7 +158,7 @@ See [docs/gpt-5.6-sol-safety-eval.md](docs/gpt-5.6-sol-safety-eval.md) for the c
 
 ### Version Iteration Trend (through v41)
 
-The charts preserve comparable historical data through v41. They do not append v42 to the historical curves because the same full `low`, `medium`, and `high` matrices have not yet been completed for v42.
+The charts preserve comparable historical data through v41.
 
 <p align="center">
   <picture>
@@ -205,10 +207,10 @@ python3 scripts/verify_gpt56_sol_regression_scoring.py
 ```text
 gpt-5.6-instruct/
 ├── README.md / README_EN.md                     # Chinese and English home pages
-├── codex-instruct.py                            # Default v42 deployment and rollback
+├── codex-instruct.py                            # Default v45 deployment and rollback
 ├── sync-archives.py                             # Synchronize local sources and ZIPs
-├── gpt-5.6-sol-unrestricted-v42.zip             # Sole default production release
-├── historical-versions/                         # v5/v24/v35/v41/v41-skills archives
+├── gpt-5.6-sol-unrestricted-v45.zip             # Sole default production release
+├── historical-versions/                         # v5/v24/v35/v41/v42 archives
 ├── scripts/*.zip                                # Reproducible evaluation tools
 ├── unit-tests/                                  # Project-function unit tests
 ├── .github/workflows/test-codex-instruct.yml    # Python 3.8/3.13 CI
@@ -245,5 +247,3 @@ This project is released under the [MIT License](LICENSE).
 ## Acknowledgements 🙏
 
 This project is based on and extends [yynxxxxx/Codex-5.5-codex-instruct-5.5](https://github.com/yynxxxxx/Codex-5.5-codex-instruct-5.5). Thanks to the authors, [yynxxxxx](https://github.com/yynxxxxx) and li lingbo, for their open-source work.
-
-See [`historical-versions/README.md`](historical-versions/README.md) for the upstream sources and licenses associated with the historical `v41-skills` release.

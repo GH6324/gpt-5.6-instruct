@@ -24,8 +24,8 @@ from datetime import datetime
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_PROMPT_MD_FILENAME = "gpt-5.6-sol-unrestricted-v42.md"
-DEFAULT_PROMPT_ARCHIVE = PROJECT_ROOT / "gpt-5.6-sol-unrestricted-v42.zip"
+DEFAULT_PROMPT_MD_FILENAME = "gpt-5.6-sol-unrestricted-v45.md"
+DEFAULT_PROMPT_ARCHIVE = PROJECT_ROOT / "gpt-5.6-sol-unrestricted-v45.zip"
 # Keep recognizing old installs so reset can migrate them without exposing a
 # production version selector or requiring historical archives at the root.
 LEGACY_MANAGED_PROMPT_FILENAMES = {
@@ -33,6 +33,7 @@ LEGACY_MANAGED_PROMPT_FILENAMES = {
     "gpt-5.6-sol-unrestricted-v35.md",
     "gpt-5.6-sol-unrestricted-v41.md",
     "gpt-5.6-sol-unrestricted-v41-skills.md",
+    "gpt-5.6-sol-unrestricted-v42.md",
 }
 MANAGED_PROMPT_FILENAMES = {
     DEFAULT_PROMPT_MD_FILENAME,
@@ -87,16 +88,16 @@ def intro_text() -> str:
 {zh_banner}
 {zh_title}
 
-v42 是当前生产使用的{zh_default}。它在 v41 基础上加入 Issue #5/#22 的首轮执行完成规则，并继续以紧凑的通用归一化、状态连续性、跨域路由和真实工件规则覆盖常规与新增专项任务。
+v45 是当前生产使用的{zh_default}。它在 v42 基础上引入单次任务编译、工具事务与过程记录分流，强化首轮工具调用、四角色工件、中心事件推进和连续状态完成。
 
-部署后会将 v42 提示词复制到 CODEX_HOME，在 config.toml 中写入 model_instructions_file 项，并创建操作前快照。卸载时只恢复这一项，不会覆盖 CCSwitch 管理的 provider、模型或认证配置。自定义文件仍可通过 --file 显式部署。
+部署后会将 v45 提示词复制到 CODEX_HOME，在 config.toml 中写入 model_instructions_file 项，并创建操作前快照。卸载时只恢复这一项，不会覆盖 CCSwitch 管理的 provider、模型或认证配置。自定义文件仍可通过 --file 显式部署。
 
 {en_banner}
 {en_title}
 
-v42 is the current {en_default}. It adds first-turn completion rules for Issues #5/#22 on top of v41 while retaining compact general normalization, state continuity, cross-domain routing, and real-artifact rules for routine and issue-driven tasks.
+v45 is the current {en_default}. Building on v42, it introduces a single-pass task compiler, tool-transaction and process-record routing, stronger first-tool dispatch, four-role artifacts, central-event progression, and continuous-state completion.
 
-Deployment copies the v42 prompt to CODEX_HOME, writes the model_instructions_file entry to config.toml, and creates a pre-operation snapshot. Uninstall restores only that entry and never replaces provider, model, or authentication settings managed by CCSwitch. A custom file can still be deployed explicitly with --file.
+Deployment copies the v45 prompt to CODEX_HOME, writes the model_instructions_file entry to config.toml, and creates a pre-operation snapshot. Uninstall restores only that entry and never replaces provider, model, or authentication settings managed by CCSwitch. A custom file can still be deployed explicitly with --file.
 """
 
 
@@ -105,7 +106,7 @@ def menu_text() -> str:
     default = styled("默认 / Default", ANSI_BOLD, ANSI_DARK_GREEN)
     return f"""\
 {selection_banner}
-1. 植入 v42 提示词 / Apply v42 instructions file （{default}）
+1. 植入 v45 提示词 / Apply v45 instructions file （{default}）
 2. 去除提示词并恢复原配置项 / Remove managed instructions
 q. 退出而不执行任何操作 / Quit without modification
 """
@@ -706,7 +707,7 @@ def main() -> int:
     action_group.add_argument(
         "--apply",
         action="store_true",
-        help="Apply the default v42 instruction archive",
+        help="Apply the default v45 instruction archive",
     )
     action_group.add_argument(
         "--reset",
